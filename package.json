@@ -1,0 +1,23 @@
+{
+  "name": "mmm-keyboard",
+  "version": "1.0.0",
+  "description": "A MagicMirror² module that creates a virtual keyboard to be used to send commands or text to other modules",
+  "main": "MMM-Keyboard.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lavolp3/MMM-Keyboard.git"
+  },
+  "author": "Dirk Kovert (lavolp3)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lavolp3/MMM-Keyboard/issues"
+  },
+  "homepage": "https://github.com/lavolp3/MMM-Keyboard#readme",
+  "dependencies": {
+    "simple-keyboard": "^2.27.57",
+    "swipe-keyboard": "^2.0.63"
+  }
+}
