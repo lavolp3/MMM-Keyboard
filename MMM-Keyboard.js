@@ -21,7 +21,6 @@ Module.register("MMM-Keyboard", {
   },
 
   start: function () {
-    this.keyboardActive = false;
     this.updateDom();
   },
 
@@ -33,7 +32,8 @@ Module.register("MMM-Keyboard", {
       kbButton.width = "100px";
       kbButton.className = "kbButton fas fa-keyboard";
       kbButton.addEventListener("click", event => {
-        this.toggleKeyboard();
+        this.showKeyboard();
+        kbButton.style.display = "none";
       });
       container.appendChild(kbButton);
     }
@@ -188,14 +188,6 @@ Module.register("MMM-Keyboard", {
     });
   },
 
-  toggleKeyboard: function() {
-    if (this.keyboardActive) {
-      this.hideKeyboard();
-    } else {
-      this.showKeyboard();
-    }
-  },
-
   showKeyboard: function() {
     this.kbContainer.classList.add("show-keyboard");
     document.getElementById("inputDiv").style.display = "block";
@@ -204,7 +196,9 @@ Module.register("MMM-Keyboard", {
 
   hideKeyboard: function() {
     this.kbContainer.classList.remove("show-keyboard");
-    //document.getElementById("inputDiv").style.display = "none";
+    if (this.config.debug) {
+      document.getElementsByClassName("kbButton")[0].style.display = "block";
+    }
   },
 
   log: function (msg) {
