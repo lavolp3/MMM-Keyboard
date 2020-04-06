@@ -1,0 +1,72 @@
+.MMM-Keyboard .keyboardWrapper {
+  width: 600px;
+  margin: 100px auto;
+  text-align: center;
+}
+
+.MMM-Keyboard .kbButton {
+  height: 75px;
+  font-size: 70px;
+  width: 100px;
+}
+
+.MMM-Keyboard #inputField {
+  width: 400px;
+  font-size: 26px;
+  padding: 10px 20px;
+  margin: 10px;
+  box-sizing: border-box;
+  background-color: black;
+  border: 4px solid white;
+  border-radius: 8px;
+  resize: none;
+  color: white;
+}
+
+.MMM-Keyboard input:focus {
+}
+
+.MMM-Keyboard .sendButton {
+  background-color: #000044;
+  border: 4px solid white;
+  border-radius: 8px;
+  color: white;
+  font-size: 26px;
+  padding: 10px 20px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.MMM-Keyboard {
+  margin: 100px auto;
+}
+
+.MMM-Keyboard .simple-keyboard {
+  opacity: 0;
+  margin-top: -200%;
+  transition: margin-top 0.8s ease-in-out, opacity 0.3s;
+}
+
+.MMM-Keyboard .show-keyboard {
+  opacity: 1;
+  margin-top: 0;
+}
+
+.MMM-Keyboard .hg-theme-default {
+  padding: 10px;
+  background-color: black;
+}
+
+.MMM-Keyboard .hg-theme-default .hg-button {
+  height: 58px;
+  width: 60px;
+  color: #5d7b9d;
+  font-size: 1em;
+  padding: 8px;
+  margin: 2px;
+}
+
+.MMM-Keyboard .hg-theme-default .specialButton {
+  min-width: 80px;
+  max-width: 120px;
+}

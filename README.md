@@ -18,14 +18,15 @@ cd MMM-Keyboard
 npm install
 ```
 
-### Step 2 - Add module to `~MagicMirror/config/config.js`
-Add this configuration into `config.js` file's
+### Step 2 - Add module to `config.js`
+Add this configuration into your `config.js` file
 ```javascript
 {
     module: "MMM-Keyboard",
-    position: "top_right",
+    position: "fullscreen_above",
     config: {
-       locale: "de-DE"
+        style: "default",
+        swipe: false
     }
 }
 ```
@@ -36,16 +37,65 @@ Add this configuration into `config.js` file's
 * [swipe-keyboard](https://www.npmjs.com/package/swipe-keyboard)
 
 ## Updating
-Go to the module’s folder inside MagicMirror modules folder and pull the latest version from GitHub:
+Go to the module’s folder `/MagicMirror/modules/MMM-Keyboard` and pull the latest version from GitHub:
 ```
 git pull
 npm install
 ```
+
 ## Configuring
 
 
-| Option               | Description
-|--------------------- |-----------
-| `maxLatestItems`     | Maximum recent items to display. <br>**Type:** `number` <br> **Default value:** `0` (all)
-| `locale`             | The locale. <br>**Type:** `string` <br> **Default value:** `de-DE`
-| `swipe`              | Activate swipe mode (experimental!) **Default value:** false
+| Option           | default        | Description
+|------------------|--------------- |-----------
+| `locale`         | "en"           | The locale. <br>**Type:** `string` <br> **Default value:** `de-DE`
+| `swipe`          | false          | Activate swipe mode (experimental!) **Default value:** false
+| `alwaysShow`     | false          | Always show keyboard.
+| `debug`          | false          | Debug mode for additional console output. Will also create a keyboard button to activate the keyboard.
+
+
+## Working with the Keyboard
+
+# Opening the keyboard
+
+The keyboard works with MagicMirror's notification system. You can broadcast notifications from another module using the following parameters
+```
+this.sendNotification("KEYBOARD", {
+    key: "uniqueKey",
+    style: "default"
+});
+```
+
+The payload of the notification must be an object containing two parameters:
+`key`: You can use any unique key, it is advised to use the module name. MMM-Keyboard will take the key and send it back for the module to understand it.
+`style`: Use "default" or "numbers" here,
+
+# Receiving data
+
+As soon as you hit the "SEND!"-Button the keyboard sends back the written content using the format
+
+```
+this.sendNotification("KEYBOARD_INPUT", {
+    key: "uniqueKey",
+    message: "test"
+});
+```
+
+You can fetch this message by checking for the `key` component. Here an example:
+
+```
+notificationReceived : function (notification, payload) {
+    if (notification == "KEYBOARD_INPUT") {
+        if (payload.key === "uniqueKey") {
+            console.log(payload.message);
+        }
+    }
+},
+```
+
+
+## ToDos
+
+- [ ] include locales ("de", "en");
+- [ ] include styling options
+- [ ] use transition effect to draw keyboard up from bottom or top border
