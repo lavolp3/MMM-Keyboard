@@ -1,6 +1,6 @@
 # MMM-Keyboard
 
-![Alt text](MMM-Keyboard-example.png "MMM-Keyboard preview.")
+![Example image](keyboard-example.jpg)
 
 A module for the [MagicMirror²](https://github.com/MichMich/MagicMirror/) that creates a virtual keyboard to be used to send commands or text to other modules
 
@@ -46,17 +46,17 @@ npm install
 ## Configuring
 
 
-| Option           | default        | Description
-|------------------|--------------- |-----------
-| `locale`         | "en"           | The locale. <br>**Type:** `string` <br> **Default value:** `de-DE`
-| `swipe`          | false          | Activate swipe mode (experimental!) **Default value:** false
-| `alwaysShow`     | false          | Always show keyboard.
-| `debug`          | false          | Debug mode for additional console output. Will also create a keyboard button to activate the keyboard.
+| Option          | type   | default        | Description
+|-----------------|------  |--------------- |-----------
+| `locale`        | string | "en"           | The locale. **(not implemented yet)**
+| `swipe`         | boolean| false          | Activate swipe mode (experimental!)  **(not implemented yet)**
+| `alwaysShow`    | boolean| false          | Always show keyboard.  **(not implemented yet)**
+| `debug`         | boolean| false          | Debug mode for additional console output. Will also create a keyboard button to activate the keyboard.
 
 
-## Working with the Keyboard
+# Working with the Keyboard
 
-# Opening the keyboard
+## Opening the keyboard
 
 The keyboard works with MagicMirror's notification system. You can broadcast notifications from another module using the following parameters
 ```
@@ -70,7 +70,7 @@ The payload of the notification must be an object containing two parameters:
 `key`: You can use any unique key, it is advised to use the module name. MMM-Keyboard will take the key and send it back for the module to understand it.
 `style`: Use "default" or "numbers" here,
 
-# Receiving data
+## Receiving data
 
 As soon as you hit the "SEND!"-Button the keyboard sends back the written content using the format
 
@@ -85,16 +85,14 @@ You can fetch this message by checking for the `key` component. Here an example:
 
 ```
 notificationReceived : function (notification, payload) {
-    if (notification == "KEYBOARD_INPUT") {
-        if (payload.key === "uniqueKey") {
-            console.log(payload.message);
-        }
+    if (notification == "KEYBOARD_INPUT" && payload.key === "uniqueKey") {
+        console.log(payload.message);
     }
 },
 ```
 
 
-## ToDos
+# ToDos
 
 - [ ] include locales ("de", "en");
 - [ ] include styling options
