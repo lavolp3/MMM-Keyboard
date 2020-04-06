@@ -28,7 +28,6 @@ Module.register("MMM-Keyboard", {
   getDom: function () {
     var container = document.createElement("div");
     container.className = "keyboardWrapper";
-    var self = this;
     if (this.config.debug) {
       var kbButton = document.createElement("div");
       kbButton.width = "100px";
@@ -38,6 +37,8 @@ Module.register("MMM-Keyboard", {
       });
       container.appendChild(kbButton);
     }
+    this.kbContainer = document.createElement("div");
+    this.kbContainer.className = "kbContainer";
     var inputDiv = document.createElement("div");
     inputDiv.id = "inputDiv";
     inputDiv.style.display = "none";
@@ -71,10 +72,11 @@ Module.register("MMM-Keyboard", {
     inputDiv.appendChild(input);
     inputDiv.appendChild(send);
     inputDiv.appendChild(hideButton);
-    container.appendChild(inputDiv);
+    this.kbContainer.appendChild(inputDiv);
     var kb = document.createElement("div");
     kb.className = "simple-keyboard";
-    container.appendChild(kb);
+    this.kbContainer.appendChild(kb);
+    container.appendChild(this.kbContainer);
     return container;
   },
 
@@ -195,16 +197,14 @@ Module.register("MMM-Keyboard", {
   },
 
   showKeyboard: function() {
-    this.keyboardActive = true;
-    this.keyboard.keyboardDOM.classList.add("show-keyboard");
+    this.kbContainer.classList.add("show-keyboard");
     document.getElementById("inputDiv").style.display = "block";
 
   },
 
   hideKeyboard: function() {
-    this.keyboardActive = false;
-    this.keyboard.keyboardDOM.classList.remove("show-keyboard");
-    document.getElementById("inputDiv").style.display = "none";
+    this.kbContainer.classList.remove("show-keyboard");
+    //document.getElementById("inputDiv").style.display = "none";
   },
 
   log: function (msg) {

@@ -2,6 +2,13 @@
   width: 600px;
   margin: 100px auto;
   text-align: center;
+  
+}
+
+.MMM-Keyboard .kbContainer {
+  opacity: 0;
+  margin-top: -200%;
+  transition: margin-top 0.8s ease-in-out, opacity 0.3s;
 }
 
 .MMM-Keyboard .kbButton {
@@ -44,9 +51,7 @@
 }
 
 .MMM-Keyboard .simple-keyboard {
-  opacity: 0;
-  margin-top: -200%;
-  transition: margin-top 0.8s ease-in-out, opacity 0.3s;
+
 }
 
 .MMM-Keyboard .show-keyboard {
