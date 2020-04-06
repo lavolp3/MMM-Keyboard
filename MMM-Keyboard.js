@@ -58,8 +58,19 @@ Module.register("MMM-Keyboard", {
       this.hideKeyboard();
       document.getElementById("inputField").value = '';
     };
+    var hideButton = document.createElement("button");
+    hideButton.className = "sendButton";
+    hideButton.innerText = "\u21e7";
+    hideButton.style.backgroundColor = "#880000";
+    hideButton.setAttribute("name", "hideButton");
+    hideButton.onclick = () => {
+      this.hideKeyboard();
+      document.getElementById("inputField").value = '';
+    };
+    
     inputDiv.appendChild(input);
     inputDiv.appendChild(send);
+    inputDiv.appendChild(hideButton);
     container.appendChild(inputDiv);
     var kb = document.createElement("div");
     kb.className = "simple-keyboard";

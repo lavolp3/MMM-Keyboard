@@ -11,10 +11,10 @@
 }
 
 .MMM-Keyboard #inputField {
-  width: 400px;
+  width: 370px;
   font-size: 26px;
   padding: 10px 20px;
-  margin: 10px;
+  margin: 10px 5px;
   box-sizing: border-box;
   background-color: black;
   border: 4px solid white;
@@ -32,9 +32,11 @@
   border-radius: 8px;
   color: white;
   font-size: 26px;
-  padding: 10px 20px;
+  padding: 10px 10px;
   text-decoration: none;
   cursor: pointer;
+  margin: 10px 5px;
+  min-width: 60px;
 }
 
 .MMM-Keyboard {
