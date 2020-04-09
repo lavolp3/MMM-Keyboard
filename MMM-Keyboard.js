@@ -3,9 +3,14 @@ Module.register("MMM-Keyboard", {
 
   defaults: {
     showAlways: false,
-    locale: "en",
-    debug: false
+    layout: "default",
+    language: config.language || "en",
+    startUppercase: true,
+    startWithNumbers: false,
+    debug: false,
   },
+
+  layouts: {},
 
   getStyles: function () {
     return [
@@ -21,7 +26,29 @@ Module.register("MMM-Keyboard", {
   },
 
   start: function () {
+    this.shiftState = (this.config.startUppercase) ? 1 : 0;
+    var self = this;
+    this.loadLayouts(response => {
+      self.layouts = JSON.parse(response);
+      self.log(self.layouts[self.config.language]);
+    });
     this.updateDom();
+  },
+
+
+  loadLayouts: function(callback) {
+    this.log("Loading keyboard layouts");
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open("GET", this.file('layouts.json'), true);
+    xobj.onreadystatechange = function() {
+      if (xobj.readyState === 4 && xobj.status === 200) {
+        callback(xobj.responseText);
+      //} else {
+      //  console.error("Error loading keyboard layouts: " + xobj.status)
+      }
+    };
+    xobj.send(null);
   },
 
   getDom: function () {
@@ -50,7 +77,7 @@ Module.register("MMM-Keyboard", {
     });
     var send = document.createElement("button");
     send.className = "sendButton";
-    send.innerText = "SEND!";
+    send.innerText = "  SEND!  ";
     send.setAttribute("name", "sendButton");
     send.onclick = () => {
       var message = document.getElementById("inputField").value;
@@ -68,7 +95,7 @@ Module.register("MMM-Keyboard", {
       this.hideKeyboard();
       document.getElementById("inputField").value = '';
     };
-    
+
     inputDiv.appendChild(input);
     inputDiv.appendChild(send);
     inputDiv.appendChild(hideButton);
@@ -100,31 +127,49 @@ Module.register("MMM-Keyboard", {
 
   onChange: function(input) {
     document.getElementById("inputField").value = input;
-    //this.log("Input changed", input);
+    //this.log("Input changed: " + input);
+    if (input === "" && this.config.startUppercase) { 
+      this.shiftState = 1;
+      this.handleShift();
+    }
+
   },
 
   onKeyPress: function(button) {
     /**
-     * If you want to handle the shift and caps lock buttons
+     * Handles shift, lock and numbers buttons.
      */
-    if (button === "{shift}" || button === "{lock}") { this.handleShift(); }
-    if (button === "{numbers}" || button === "{abc}") { this.handleNumbers(); }
+    switch (button) {
+      case "{shift}":
+        this.shiftState = (this.shiftState === 0) ? 1 : (this.shiftState === 1) ? 2 : 0;
+        this.handleShift(button);
+        break;
+      case "{lock}":
+        this.shiftState = (this.shiftState < 2) ? 2 : 0;
+        this.handleShift(button);
+        break;
+      case "{numbers}":
+      case "{abc}":
+        this.handleNumbers();
+        break;
+      default:
+        this.shiftState = (this.shiftState < 2) ? 0 : 2;
+        this.handleShift(button);
+    }
   },
 
-  handleShift: function() {
-    let currentLayout = this.keyboard.options.layoutName;
-    let shiftToggle = currentLayout === "default" ? "shift" : "default";
-    this.log("Changing shift mode to " + shiftToggle);
-
+  handleShift: function(button) {
+    var layout = (this.keyboard.options.layoutName == "numbers") ? "numbers" : (this.shiftState == 0) ? "default" : "shift";
     this.keyboard.setOptions({
-      layoutName: shiftToggle
+      layoutName: layout
     });
+    if (button == "{shift}") { this.log("Changing shift mode to " + layout); }
     this.showKeyboard();
   },
 
   handleNumbers: function() {
-    let currentLayout = this.keyboard.options.layoutName;
-    let numbersToggle = currentLayout !== "numbers" ? "numbers" : "default";
+    var currentLayout = this.keyboard.options.layoutName;
+    var numbersToggle = currentLayout !== "numbers" ? "numbers" : "default";
     this.keyboard.setOptions({
       layoutName: numbersToggle
     });
@@ -137,36 +182,27 @@ Module.register("MMM-Keyboard", {
       if ( event.target !== this.keyboard.keyboardDOM && !event.target.classList.contains("keyboardWrapper") && !event.target.classList.contains("hg-button")) {
         this.hideKeyboard();
       }
-  });*/
+    });*/
+    var kbLayout = (this.config.startWithNumbers) ? "numbers" : (this.shiftState == 0) ? "default" : "shift"
     var Keyboard = window.SimpleKeyboard.default;
     this.keyboard = new Keyboard({
       onChange: input => this.onChange(input),
       onKeyPress: button => this.onKeyPress(button),
       mergeDisplay: true,
-      layoutName: "default",
-      layout: {
-        default: [
-          "q w e r t y u i o p {backspace}",
-          "a s d f g h j k l ; '",
-          "{shift} z x c v b n m , . /",
-          "{numbers} {space} {ent}"
-        ],
-        shift: [
-          "Q W E R T Y U I O P {backspace}",
-          "A S D F G H J K L ; ' ",
-          "{shift} Z X C V B N M , . /",
-          "{numbers} {space} {ent}"
-        ],
-        numbers: ["1 2 3", "4 5 6", "7 8 9", "{abc} 0 {backspace}"]
-      },
+      layoutName: kbLayout,
+      layout: this.layouts[this.config.language],
       buttonTheme: [
         {
           class: "specialButton",
-          buttons: "{shift} {ent} {escape} {capslock} {tab} {altleft} {altright} {abc} {numbers} {backspace}"
+          buttons: "{shift} {ent} {escape} {lock} {tab} {altleft} {altright} {abc} {numbers} {backspace} 0"
         },
         {
           class: "spaceButton",
           buttons: "{space}"
+        },
+        {
+          class: "emptyButton",
+          buttons: " "
         }
       ],
       display: {
@@ -175,7 +211,7 @@ Module.register("MMM-Keyboard", {
         "{escape}": "esc",
         "{tab}": "tab",
         "{backspace}": "  \u21e6  ",
-        "{capslock}": "  \u21ee  ",
+        "{lock}": "  \u21ee  ",
         "{shift}": "  \u21e7  ",
         "{controlleft}": "ctrl",
         "{controlright}": "ctrl",

@@ -91,9 +91,26 @@ notificationReceived : function (notification, payload) {
 },
 ```
 
+## Implemented modules
+
+- [ ] MMM-Bring (PR'd)
+
+Planned:
+- [ ] MMM-Todo
+- [ ] an own Timer / Alarm module
+
+For further implementations, contact me or send it as an issue here!
+
 
 # ToDos
 
-- [ ] include locales ("de", "en");
+- [x] include locales ("de", "en")
 - [ ] include styling options
-- [ ] use transition effect to draw keyboard up from bottom or top border
+- [x] use transition effect to draw keyboard up from bottom or top border
+
+
+## THANKS
+
+Thanks go to
+- Francisco Hodge for his beautiful simple-keyboard npm module
+- @jheyman for alpha testing :-)

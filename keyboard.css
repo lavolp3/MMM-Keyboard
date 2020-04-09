@@ -1,7 +1,8 @@
 .MMM-Keyboard .keyboardWrapper {
-  width: 600px;
+  width: 650px;
   margin: 100px auto;
   text-align: center;
+  z-index: 3;
   
 }
 
@@ -19,9 +20,9 @@
 }
 
 .MMM-Keyboard #inputField {
-  width: 370px;
+  width: 390px;
   font-size: 26px;
-  padding: 10px 20px;
+  padding: 20px 20px;
   margin: 10px 5px;
   box-sizing: border-box;
   background-color: black;
@@ -40,7 +41,7 @@
   border-radius: 8px;
   color: white;
   font-size: 26px;
-  padding: 10px 10px;
+  padding: 20px 10px;
   text-decoration: none;
   cursor: pointer;
   margin: 10px 5px;
@@ -65,16 +66,28 @@
   background-color: black;
 }
 
+.MMM-Keyboard .hg-theme-default .hg-row {
+  justify-content: center;
+}
+
 .MMM-Keyboard .hg-theme-default .hg-button {
-  height: 58px;
-  width: 60px;
+  height: 50px;
   color: #5d7b9d;
-  font-size: 1em;
+  font-size: 0.7em;
   padding: 8px;
-  margin: 2px;
+  margin: 1px;
+}
+
+.MMM-Keyboard .hg-theme-default .hg-button.hg-standardBtn{
+  min-width: 45px;
+  max-width: 45px;
 }
 
 .MMM-Keyboard .hg-theme-default .specialButton {
-  min-width: 80px;
-  max-width: 120px;
+  min-width: 60px;
+  max-width: 150px;
+}
+
+.MMM-Keyboard .hg-theme-default .emptyButton {
+  background-color: #ccc;
 }
