@@ -86,6 +86,7 @@
 .MMM-Keyboard .hg-theme-default .specialButton {
   min-width: 60px;
   max-width: 150px;
+  color: #0000ce;
 }
 
 .MMM-Keyboard .hg-theme-default .emptyButton {
