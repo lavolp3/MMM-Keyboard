@@ -6,7 +6,7 @@ A module for the [MagicMirror²](https://github.com/MichMich/MagicMirror/) that 
 
 ## Features
  * Touch Support
- * Locale Support
+ * Locale Support (en and de)
 
 ## Installing
 
@@ -25,8 +25,9 @@ Add this configuration into your `config.js` file
     module: "MMM-Keyboard",
     position: "fullscreen_above",
     config: {
-        style: "default",
-        swipe: false
+        startWithNumbers: false,
+        startUppercase: true,
+        debug: false
     }
 }
 ```
@@ -43,15 +44,16 @@ git pull
 npm install
 ```
 
-## Configuring
+## Configuration options
 
-
-| Option          | type   | default        | Description
-|-----------------|------  |--------------- |-----------
-| `locale`        | string | "en"           | The locale. **(not implemented yet)**
-| `swipe`         | boolean| false          | Activate swipe mode (experimental!)  **(not implemented yet)**
-| `alwaysShow`    | boolean| false          | Always show keyboard.  **(not implemented yet)**
-| `debug`         | boolean| false          | Debug mode for additional console output. Will also create a keyboard button to activate the keyboard.
+| Option            | type   | default        | Description
+|-------------------|--------|--------------- |-----------
+| `language`        | string | config.language| The language. You can override the MM settings here.
+| `swype`           | boolean| false          | Activate swipe mode (experimental!)  **(not implemented yet)**
+| `alwaysShow`      | boolean| false          | Always show keyboard.  **(not implemented yet)**
+| `startWithNumbers`| boolean| false          | Start keyboard with 'numbers' layout
+| `startUppercase`  | boolean| true           | Always start with uppercase letters
+| `debug`           | boolean| false          | Debug mode for additional console output. Will also create a keyboard button to activate the keyboard.
 
 
 # Working with the Keyboard
