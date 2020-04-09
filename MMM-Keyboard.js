@@ -27,6 +27,9 @@ Module.register("MMM-Keyboard", {
 
   start: function () {
     this.shiftState = (this.config.startUppercase) ? 1 : 0;
+    if (!["de", "en"].includes(this.config.language)) { 
+      this.config.language = "en"; 
+    }
     var self = this;
     this.loadLayouts(response => {
       self.layouts = JSON.parse(response);
