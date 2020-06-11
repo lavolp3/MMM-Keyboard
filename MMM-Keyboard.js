@@ -71,7 +71,7 @@ Module.register("MMM-Keyboard", {
     input.id = "kbInput";
     input.setAttribute("type", "text");
     input.addEventListener("input", event => {
-      self.keyboard.setInput(event.target.value);
+      this.keyboard.setInput(event.target.value);
     });
     var send = document.createElement("button");
     send.className = "sendButton";
