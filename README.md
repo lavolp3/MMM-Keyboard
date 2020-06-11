@@ -69,10 +69,10 @@ this.sendNotification("KEYBOARD", {
 });
 ```
 
-The payload of the notification must be an object containing two parameters:
-`key`: You can use any unique key, it is advised to use the module name. MMM-Keyboard will take the key and send it back for the module to understand it.
-`style`: Use "default" or "numbers" here.
-`data`: Any data you want to transfer. E.g. if the keyboard input should be allocated to a certain element.
+The payload of the notification must be an object containing two parameters:  
+`key`: You can use any unique key, it is advised to use the module name. MMM-Keyboard will take the key and send it back for the module to understand it.  
+`style`: Use "default" or "numbers" here.  
+`data`: Any data you want to transfer. E.g. if the keyboard input should be allocated to a certain element.  
 
 ## Receiving data
 
@@ -86,7 +86,7 @@ this.sendNotification("KEYBOARD_INPUT", {
 });
 ```
 
-The data object is the same you have send with your notification.
+The data object is the same you have send with your notification.  
 You can fetch the message by checking for the `key` component. Here an example:
 
 ```
