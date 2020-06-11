@@ -1,9 +1,9 @@
 .MMM-Keyboard .keyboardWrapper {
   width: 650px;
-  margin: 100px auto;
+  margin: auto;
   text-align: center;
-  z-index: 3;
-  
+  z-index: 20;
+
 }
 
 .MMM-Keyboard .kbContainer {
@@ -19,7 +19,7 @@
   margin: auto auto;
 }
 
-.MMM-Keyboard #inputField {
+.MMM-Keyboard #kbInput {
   width: 390px;
   font-size: 26px;
   padding: 20px 20px;

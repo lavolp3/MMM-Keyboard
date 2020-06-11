@@ -64,13 +64,15 @@ The keyboard works with MagicMirror's notification system. You can broadcast not
 ```
 this.sendNotification("KEYBOARD", {
     key: "uniqueKey",
-    style: "default"
+    style: "default",
+    data: {},
 });
 ```
 
 The payload of the notification must be an object containing two parameters:
 `key`: You can use any unique key, it is advised to use the module name. MMM-Keyboard will take the key and send it back for the module to understand it.
-`style`: Use "default" or "numbers" here,
+`style`: Use "default" or "numbers" here.
+`data`: Any data you want to transfer. E.g. if the keyboard input should be allocated to a certain element.
 
 ## Receiving data
 
@@ -79,11 +81,13 @@ As soon as you hit the "SEND!"-Button the keyboard sends back the written conten
 ```
 this.sendNotification("KEYBOARD_INPUT", {
     key: "uniqueKey",
-    message: "test"
+    message: "test",
+    data: {}
 });
 ```
 
-You can fetch this message by checking for the `key` component. Here an example:
+The data object is the same you have send with your notification.
+You can fetch the message by checking for the `key` component. Here an example:
 
 ```
 notificationReceived : function (notification, payload) {
@@ -95,7 +99,7 @@ notificationReceived : function (notification, payload) {
 
 ## Implemented modules
 
-- [ ] MMM-Bring (PR'd)
+- [x] MMM-Bring
 
 Planned:
 - [ ] MMM-Todo
