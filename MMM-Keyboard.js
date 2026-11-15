@@ -304,9 +304,7 @@ Module.register('MMM-Keyboard', {
       ?? this.config.hideLabel;
     this.kbContainer.classList.add('show-keyboard');
     const { value } = this.current;
-    if (value) {
-      this.keyboard.setInput(value);
-    }
+    this.keyboard.setInput(value ?? '');
 
     document.getElementById('kbInput').value = this.keyboard.getInput();
   },

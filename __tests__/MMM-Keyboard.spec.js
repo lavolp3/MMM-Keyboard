@@ -22,7 +22,7 @@ beforeEach(() => {
   oldLog = MMMKeyboard.log;
   MMMKeyboard.log = jest.fn();
   MMMKeyboard.keyboard = {
-    value: 'test-input',
+    value: '',
     setOptions: jest.fn(),
     getInput: jest.fn().mockImplementation(() => MMMKeyboard.keyboard.value),
     setInput: jest.fn().mockImplementation(
@@ -251,7 +251,7 @@ describe('notificationReceived', () => {
         layoutName: 'shift',
       });
       expect(document.getElementById('kbInput').value)
-        .toBe('test-input');
+        .toBe('');
     });
 
     it('sets layout shift if default and startUppercase', () => {
@@ -710,7 +710,7 @@ describe('showKeyboard', () => {
     MMMKeyboard.showKeyboard();
 
     expect(MMMKeyboard.kbContainer.classList).toContain('show-keyboard');
-    expect(document.getElementById('kbInput').value).toBe('test-input');
+    expect(document.getElementById('kbInput').value).toBe('');
   });
 
   it('updates the send button with payload override', () => {
@@ -753,6 +753,15 @@ describe('showKeyboard', () => {
     MMMKeyboard.showKeyboard();
 
     expect(document.getElementById('kbInput').value).toBe('existing value');
+  });
+
+  it('clears the text box if value is not included', () => {
+    MMMKeyboard.current = {};
+    document.getElementById('kbInput').value = 'existing value';
+
+    MMMKeyboard.showKeyboard();
+
+    expect(document.getElementById('kbInput').value).toBe('');
   });
 });
 
